@@ -28,7 +28,7 @@
 #     rate=iris.class_pro(len(f))
 #     iris.forecast(rate,mean,var)
 
-#sklearn 实现贝叶斯
+#sklearn 实现贝叶斯 ---
 from sklearn import datasets
 iris=datasets.load_iris()
 from sklearn.naive_bayes import GaussianNB
