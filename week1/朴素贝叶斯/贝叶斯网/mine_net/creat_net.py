@@ -132,18 +132,18 @@ def con_pro(data, parent_list, var_num, parent, var):
 
 
 
-def class_pro(val_index, k,data): 
-    """
-    ### 每个类的先验概率
-    ### val_index:属性的下标，k属性可以取值的个数
-    ### return :类条件概率 [0.1 ,0.4 ,0.7 ]
-    """
-    pro={x:0 for x in range(k)}
-    n=np.size(data,0)
-    for i in range(n):#每行数据
-        pro[ data.iloc[i,val_index]-1 ]+=1
-    pro=[pro[key]/n for key in pro]
-    return pro 
+# def class_pro(val_index, k,data): 
+#     """
+#     ### 每个类的先验概率
+#     ### val_index:属性的下标，k属性可以取值的个数
+#     ### return :类条件概率 [0.1 ,0.4 ,0.7 ]
+#     """
+#     pro={x:0 for x in range(k)}
+#     n=np.size(data,0)
+#     for i in range(n):#每行数据
+#         pro[ data.iloc[i,val_index]-1 ]+=1
+#     pro=[pro[key]/n for key in pro]
+#     return pro 
     
 
 
@@ -221,7 +221,7 @@ print(dag)
 cptList = joblib.load('cptList.save') #读取训练数据 
 # print(cptList[2].pro) # cptlist 包含了所有属性的相关的条件概率 （...,0）前面几位代表其父亲节点的取值，最后一位代表当前属性的取值
 
-
+print(cptList[7].pro)
 
 #------------------------------------------------------------------------------------------------
 # #获取类条件概率
@@ -235,71 +235,3 @@ class_list = joblib.load('class_list.save') #读取训练数据
 # print(class_list[0])
 
 
-data = pd.read_csv("titanic_test.csv")
-categories = data.columns.tolist()
-# #用来存储每个变量有几个取值
-var_range = [np.unique(data.loc[:, x]) for x in categories]
-
-#预测
-def predict(val_index,parent_value):
-    """
-    ### 参数
-    val_index:属性的下标\n
-    parent_value:此属性的父节点的取值 (从0开始)
-    ### return：
-        此属性的预测值（每个可能的取值）
-    """
-
-    parent_list=cptList[val_index].parent
-    pro=[]
-    for i in range(np.size(var_range[val_index])):#当前属性的可能的取值
-        p=parent_value[:]
-        p.append(i)
-        tmp_pro=max(cptList[val_index].pro[tuple(p)],0.01)*max(class_list[val_index][i],0.01)#根据求得的条件概率*类概率（可得）
-        pro.append(round(tmp_pro,3))
-    return pro
-
-#真实情况：
-def true_pro(val_index,parent_value):
-    parent_value=[x+1 for x in parent_value]#（parent_value从1 开始）
-    # print(parent_value)
-    sum=0
-    pro=[0 for x in range(np.size(var_range[val_index]))] #初始都是0（类的每个可能的取值）
-    parent_list=cptList[val_index].parent
-    for i in range(np.size(data,0)):
-        if((data.iloc[i,parent_list]==parent_value).all()):
-            sum+=1
-            pro[data.iloc[i,val_index]-1]+=1
-    return [ round(pro[x]/sum,3)  for x in range(np.size(pro))]
-
-
-##预测结果-------------------------------------------------------------
-# [3,3,3,3,3,2,3,2]
-
-# pro=predict(1,[0])   
-# true_pro=true_pro(1,[0]) 
-# [0.563, 0.034, 0.004]
-# [0.777, 0.179, 0.044]
-
-# pro=predict(7,[1,1,1,1])
-# true_pro=true_pro(7,[1,1,1,1])
-# # [0.006, 0.382]
-# # [0.0, 1.0]
-
-# pro=predict(7,[0,0,1,1])
-# true_pro=true_pro(7,[0,0,1,1])
-# # [0.514, 0.064]
-# # [0.833, 0.167]
-
-# pro=predict(7,[0,2,0,0])
-# true_pro=true_pro(7,[0,2,0,0])
-# # [0.527, 0.056]
-# # [0.854, 0.146]
-
-pro=predict(7,[2,0,1,0])
-true_pro=true_pro(7,[2,0,1,0])
-# [0.529, 0.055]
-# [0.857, 0.143]
-
-print(pro)
-print(true_pro)
