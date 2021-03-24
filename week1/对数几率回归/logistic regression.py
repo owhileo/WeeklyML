@@ -18,25 +18,8 @@ class Logistic_Regressor(object):
     def fit_newton(self,x,y):
         # preprocess 
         data_len,x_dim=x.shape
-<<<<<<< HEAD
         self.beta=np.zeros(x_dim+1)
         x=np.column_stack((x,np.ones(data_len)))
-=======
-        self.y_decode=np.unique(y)
-        self.y_encode=dict([[b,a] for a,b in enumerate(self.y_decode)])
-        y=np.array([self.y_encode[a] for a in y])
-
-
-        # min-max standardize
-        self.max=np.max(x,axis=0)
-        self.min=np.min(x,axis=0)
-        x=(x-self.min)/(self.max-self.min)
-        
-
-        self.beta=np.ones(x_dim+1)/(x_dim+1)
-        x=np.column_stack((x,np.ones(data_len)))#将2个矩阵按列合并
-        l_p1=-1
->>>>>>> 36d06e8a4adfefe5ede32f7506cd25e7dc6759f7
 
         # Newton's method
         while True:
@@ -255,7 +238,6 @@ def timeit(x,y,self_done=False,solver='newton'):
     return t
 
 
-<<<<<<< HEAD
 
 # x,y=load_data1()
 # sklearn_logistic_regression(x,y,False)
@@ -284,15 +266,3 @@ print(res)
 # [0.023927068710327147, 0.01493988037109375, 0.018261981010437012, 0.01968522071838379]
 
 # [0.410368537902832, 3.058761167526245, 1.8805846452713013, 4.254945707321167]
-=======
-# x,y=load_data1()
-# sklearn_logistic_regression(x,y,False)
-# x,y=load_data2()
-# sklearn_logistic_regression(x,y,False)
-
-
-x,y=load_data1()
-sklearn_logistic_regression(x,y,True)
-# x,y=load_data2()
-# sklearn_logistic_regression(x,y,True)
->>>>>>> 36d06e8a4adfefe5ede32f7506cd25e7dc6759f7
