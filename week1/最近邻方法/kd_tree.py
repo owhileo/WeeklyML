@@ -20,7 +20,6 @@ class MyKDTree(object):
             if data_set == []:
                 return None
             data_set.sort(key=lambda x: x[split])
-
             split_pos = len(data_set) // 2  # 整除2
             median = data_set[split_pos]
             split_next = (split + 1) % k
@@ -37,6 +36,7 @@ class MyKDTree(object):
             nearest.append([-1, None])
         self.nearest = np.array(nearest)
 
+
         def recurve(node):
             if node is not None:
                 axis = node.split
@@ -45,6 +45,7 @@ class MyKDTree(object):
                     recurve(node.left)
                 else:
                     recurve(node.right)
+
                 dist = np.sqrt(np.sum((np.array(x) - node.value[:-1]) ** 2))
                 for i, d in enumerate(self.nearest):
                     if d[0] < 0 or dist < d[0]:  # 如果当前nearest内i处未标记（-1），或者新点与x距离更近
@@ -83,6 +84,6 @@ if __name__ == '__main__':
     kd = MyKDTree(data)
 
     # [3, 4.5]最近的3个点
-    n = kd.search(kd.root, [3, 4.5], 3)
+    n = kd.search( [3, 4.5], 3)
     print(n)
 

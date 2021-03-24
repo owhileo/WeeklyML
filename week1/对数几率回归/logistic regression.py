@@ -22,6 +22,7 @@ class Logistic_Regressor(object):
         self.y_encode=dict([[b,a] for a,b in enumerate(self.y_decode)])
         y=np.array([self.y_encode[a] for a in y])
 
+
         # min-max standardize
         self.max=np.max(x,axis=0)
         self.min=np.min(x,axis=0)
@@ -29,7 +30,7 @@ class Logistic_Regressor(object):
         
 
         self.beta=np.ones(x_dim+1)/(x_dim+1)
-        x=np.column_stack((x,np.ones(data_len)))
+        x=np.column_stack((x,np.ones(data_len)))#将2个矩阵按列合并
         l_p1=-1
 
         # Newton's method
@@ -88,12 +89,13 @@ def sklearn_logistic_regression(x,y,self_done=False):
     print(classification_report(y_test,pred))
 
 
-x,y=load_data1()
-sklearn_logistic_regression(x,y,False)
-x,y=load_data2()
-sklearn_logistic_regression(x,y,False)
+# x,y=load_data1()
+# sklearn_logistic_regression(x,y,False)
+# x,y=load_data2()
+# sklearn_logistic_regression(x,y,False)
+
 
 x,y=load_data1()
 sklearn_logistic_regression(x,y,True)
-x,y=load_data2()
-sklearn_logistic_regression(x,y,True)
+# x,y=load_data2()
+# sklearn_logistic_regression(x,y,True)
