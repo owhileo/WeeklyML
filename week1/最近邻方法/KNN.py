@@ -21,12 +21,12 @@ class LinearTable:
         indices = []
         distance = []
         for x in X:
-            if callable(self.metric):
+            if callable(self.metric):#函数是否可以调用
                 for i, self_x in enumerate(self.X):
                     dist[i] = self.metric(x, self_x)
             else:
                 dist = np.sqrt(((self.X - x) ** 2).sum(axis=1))
-            index = np.argsort(dist)[:k]
+            index = np.argsort(dist)[:k] #argsort函数返回的是数组值从小到大的索引值
             distance.append(dist[index])
             indices.append(index)
 

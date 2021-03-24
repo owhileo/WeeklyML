@@ -57,10 +57,13 @@ def load_adult():
     x_enc = ColumnTransformer([('attributes', OneHotEncoder(), attributes)], remainder='passthrough').fit(train_X)
     # print(x_enc.transformers_[0][1].categories_)
     y_enc = LabelEncoder().fit(train_Y)
+    
 
     train_X = x_enc.transform(train_X).toarray()
     train_Y = y_enc.transform(train_Y)
     test_X = x_enc.transform(test_df.drop('income', axis=1)).toarray()
     test_Y = y_enc.transform(test_df[['income']].values.reshape(-1, ))
+    # print(test_X) 
     return train_X, test_X, train_Y, test_Y
 
+load_adult()
