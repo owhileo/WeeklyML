@@ -11,10 +11,11 @@ class bayesNode:
         
     
     def pro(self,event,x_val):
-        tmp=[x_val]
+        tmp=[]
         if(self.parent!=''):
             for val in self.parent:
                 tmp.append(event[val])
+        tmp.append(x_val)
         tmp=tuple(tmp)
         p=self.cpt[tmp]
         return p
@@ -45,12 +46,15 @@ class bayesNet:
 def Gibbs(x,val_num,evidc,BN,n):#n是迭代的次数 ，x_num 是x可以取值的个数
     count={i:0 for i in range(val_num[x])}  #每个类取值从0开势
     Z=[var for var in BN.variable if var not in evidc] #非证据因子
+    # print(Z)
     state=evidc
+    print(state)
     for Zi in Z:
         state[Zi]=random.choice(range(val_num[Zi]))  #写成一个字典才好处理
     for j in range(n):#迭代的次数
         for zi in Z:#每一个可以随机游走的属性
             T=[]
+            # print((zi))
             for num in range(val_num[zi]):#属性zi的可取的值
                 state[zi]=num
                 t=BN.tran2Node(zi).pro(state,num)#计算zi和当前状态下zi父节点条件概率
@@ -74,13 +78,7 @@ def probability(p):  #以一定的概率去选择去采样
         
 
 
-#我的输入 （...,0）前面几位代表其父亲节点的取值，最后一位代表当前属性的取值
-# BN = bayesNet([ ('A','',{(0,):0.1, (1,):0.3 ,(2,):0.6} ),('B','', {(0,):0.7, (1,):0.3 }),
-#                 ('C','A',{(0,0):0.5,(0,1):0.3,(0,2):0.2,(1,0):0.2,(1,1):0.3,(1,2):0.5}),
-#                 ('D','BC',{(0,0,0):0.1,(0,0,1):0.3,(0,1,0):0.5,(0,1,1):0.7,(1,0,0):0.1,(1,0,1):0.3,(1,1,0):0.8,(1,1,1):0.7}),
-#                 ('E','D',{(0,0):0.3,(0,1):0.5,(1,0):0.7,(1,1):0.5,(2,0):0.2,(2,1):0.8})
-#                 ])
-                
+#我的输入 （...,0）前面几位代表其父亲节点的取值，最后一位代表当前属性的取值             
 BN=bayesNet([ ('A','',{(0,):0.35,(1,):0.58,(2,):0.05}),
              ('B','A',{(0, 0): 0.777, (1, 0): 0.697, (2, 0): 0.673, (0, 1): 0.179, (1, 1): 0.188, (2, 1): 0.265, (0, 2): 0.044, (1, 2): 0.115, (2, 2): 0.061}),
              ('C','B',{(0, 0): 0.988, (1, 0): 0.929, (2, 0): 1.0, (0, 1): 0.012, (1, 1): 0.054, (2, 1): 0.0, (0, 2): 0.0, (1, 2): 0.018, (2, 2): 0.0}),
@@ -102,7 +100,7 @@ for d in range(3):
     for e in range(3):
         for f in range(2):
             for g in range(3):
-                tmp=Gibbs('H',{'A':3,'B':3,'C':3,'D':3,'E':3,'F':2,'G':3,'H':2},{'D':0,'E':1,'F':1,'G':1},BN,10000)
+                tmp=Gibbs('H',{'A':3,'B':3,'C':3,'D':3,'E':3,'F':2,'G':3,'H':2},{'D':d,'E':e,'F':f,'G':g},BN,10000)
                 if(tmp[0]>tmp[1]):
                     ans[(d,e,f,g)]=1
                 else:
