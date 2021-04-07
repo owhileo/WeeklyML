@@ -1,0 +1,3 @@
+[submodule "week3/libsvm_code"]
+	path = week3/libsvm_code
+	url = https://github.com/cjlin1/libsvm.git
