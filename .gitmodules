@@ -1,3 +1,6 @@
 [submodule "week3/libsvm_code"]
 	path = week3/libsvm_code
 	url = https://github.com/cjlin1/libsvm.git
+[submodule "week8/liblinear"]
+	path = week8/liblinear
+	url = https://github.com/cjlin1/liblinear.git
