@@ -72,10 +72,17 @@
 
 - liblinear论文及开源代码阅读、使用
 - 第8周 liblinear讲解、与libsvm对比
+- 第9周 liblinear代码阅读
 
 #### 第四回 
 
+内容：
+
 - XGboost、Lightgbm (论文及开源代码阅读、使用)
+
+安排：
+
+- 第10周 XGboost讲解
 
 #### 第五回
 
