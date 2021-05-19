@@ -4,3 +4,6 @@
 [submodule "week8/liblinear"]
 	path = week8/liblinear
 	url = https://github.com/cjlin1/liblinear.git
+[submodule "week10/xgboost"]
+	path = week10/xgboost
+	url = https://github.com/dmlc/xgboost.git
