@@ -82,7 +82,9 @@
 
 安排：
 
-- 第10周 XGboost讲解
+- 第10周 XGboost论文讲解
+- 第11周 XGboost代码及使用讲解
+- 第12周 Lightgbm讲解
 
 #### 第五回
 
