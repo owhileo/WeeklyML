@@ -1,0 +1,2 @@
+https://github.com/Jakobovski/free-spoken-digit-dataset
+数据集在这个仓库recordings文件夹下
