@@ -1,0 +1,3 @@
+https://www.deeplearningbook.org/lecture_slides.html，这是deep learning那本书对应的slides，大家也可以参考
+网上收集一些调参的方法，自己亲自去实践：https://zhuanlan.zhihu.com/p/24720954
+https://www.jiqizhixin.com/articles/2020-10-21-3
